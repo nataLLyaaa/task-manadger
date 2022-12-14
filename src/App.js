@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import uuid from "react-uuid";
+import TaskRow from "./components/TaskRow";
+const initTasks = [];
 function App() {
+  const [value, setValue] = useState("");
+  const [tasks, setTasks] = useState(initTasks);
+
+  function addTask() {
+    let obj;
+    if (value.length !== 0) {
+      obj = {
+        id: uuid(),
+        note: value,
+      };
+      setTasks([...tasks, obj]);
+    }
+    setValue("");
+  }
+  function deleteTask(id) {
+    setTasks(tasks.filter((task) => task.id !== id));
+  }
+  function editTask() {}
+  const result = tasks.map((task, index) => {
+    return (
+      <TaskRow
+        key={task.id}
+        id={task.id}
+        note={task.note}
+        deleteTask={deleteTask}
+        addTask={addTask}
+        editTask={editTask}
+      />
+    );
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input value={value} onChange={(event) => setValue(event.target.value)} />
+      <button onClick={addTask} disabled={!value}>
+        сохранить
+      </button>
+      <div>
+        <ul>{result}</ul>
+      </div>
+    </>
   );
 }
-
 export default App;
