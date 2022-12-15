@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function TaskRow({ id, note, deleteTask }) {
+function TaskRow({ id, note, deleteTask, editTask }) {
   const [inedit, setInedit] = useState(false);
   const [newTaskName, setNewTaskName] = useState(note);
 
@@ -11,7 +11,10 @@ function TaskRow({ id, note, deleteTask }) {
         onClick={() => {
           setInedit(true);
         }}
-        onBlur={() => setInedit(false)}
+        onBlur={() => {
+          setInedit(false);
+          editTask(id, newTaskName);
+        }}
       >
         {inedit ? (
           <input

@@ -20,7 +20,15 @@ function App() {
   function deleteTask(id) {
     setTasks(tasks.filter((task) => task.id !== id));
   }
-  function editTask() {}
+  function editTask(id, newTaskName) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, note: newTaskName };
+        } else return task;
+      })
+    );
+  }
   const result = tasks.map((task, index) => {
     return (
       <TaskRow
