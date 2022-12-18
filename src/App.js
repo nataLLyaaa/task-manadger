@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
+import "./App.css";
 import TaskRow from "./components/TaskRow";
 const initTasks = [];
 function App() {
@@ -8,7 +9,7 @@ function App() {
 
   function addTask() {
     let obj;
-    if (value.length !== 0) {
+    if (value) {
       obj = {
         id: uuid(),
         note: value,
@@ -43,13 +44,17 @@ function App() {
   });
   return (
     <>
-      <input value={value} onChange={(event) => setValue(event.target.value)} />
-      <button onClick={addTask} disabled={!value}>
-        сохранить
-      </button>
-      <div>
-        <ul>{result}</ul>
+      <div className="input">
+        <input
+          className="inputrow"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
+        <button className="btn" onClick={addTask} disabled={!value}>
+          сохранить
+        </button>
       </div>
+      <div className="resaltcontainer">{result}</div>
     </>
   );
 }
