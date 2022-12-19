@@ -1,59 +1,48 @@
 body {
   padding-top: 30px;
-  display: flex;
-  justify-content: center;
-  background-image: url(img1.jpg);
-}
-.btn,
-.btndel {
-  border-radius: 4px;
-  margin-left: 10px;
-  margin-right: 5px;
-  border: solid 2px rgb(99, 96, 91);
 
-  height: 30px;
+  overflow-x: visible;
 }
-.btn:hover,
-.btndel:hover {
-  background-color: rgba(182, 180, 180, 0.8);
-}
-.input {
-  margin-bottom: 40px;
-}
-.inputrow {
-  border-radius: 4px;
-  width: 800px;
-  height: 30px;
-  border: solid 2px rgb(141, 192, 173);
-}
-
 .result {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  align-self: center;
-  margin-bottom: 15px;
-  background-color: rgba(141, 192, 173, 0.8);
-  border: none;
-  border-radius: 5px;
-  width: 800px;
-  height: 50px;
-  font-size: 30px;
+  justify-content: center;
 }
-
-.resultedit {
-  border: solid 1px rgb(141, 192, 173);
+.column {
   width: 500px;
+  border: solid 1px rgb(46, 215, 216);
+}
+.columnHead {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+.columnContent {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  height: 500px;
+}
+.addContentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
   height: 30px;
-  font-size: 30px;
+  font-size: 20px;
+  color: grey;
+  background-color: white;
+  border-radius: 100%;
 }
-.checkbox {
-  width: 25px;
-  height: 25px;
-}
-.checked {
-  text-decoration: line-through;
-}
-.unchecked {
-  text-decoration: none;
+.taskResult,
+.inputTaskName {
+  width: 80%;
+  padding: 10px 7px;
+  border: solid 1px grey;
+  border-radius: 6px;
+  margin-bottom: 5px;
 }
