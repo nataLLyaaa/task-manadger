@@ -1,0 +1,13 @@
+.AddBtn {
+  background-color: white;
+  color: rgb(170, 168, 168);
+  font-size: 22px;
+  font-weight: bolder;
+  border-radius: 100%;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+}

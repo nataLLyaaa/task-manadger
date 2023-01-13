@@ -1,0 +1,17 @@
+.columnHead {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  height: 50px;
+}
+.columnContent {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  align-items: center;
+}
+
+.columnContentText {
+  padding: 5px 5px;
+}
