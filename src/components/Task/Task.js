@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
+import DoneIcon from "../../svg/DoneIkon/DoneIcon";
 import "./Task.css";
 
-function Task({ taskName }) {
+function Task({ taskName, onCLickCard, cardId, isComplete }) {
   return (
-    <div className="task" onClick={() => setVisible(true)}>
-      {taskName}
-    </div>
+    <>
+      {!isComplete ? (
+        <div
+          className="task"
+          onClick={() => {
+            onCLickCard(cardId);
+          }}
+        >
+          {taskName}
+        </div>
+      ) : (
+        <div
+          className="taskComplete"
+          onClick={() => {
+            onCLickCard(cardId);
+          }}
+        >
+          <DoneIcon />
+          <div className="taskCompleteText">{taskName}</div>
+        </div>
+      )}
+    </>
   );
 }
 export default Task;

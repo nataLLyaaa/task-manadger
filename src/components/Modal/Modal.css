@@ -1,0 +1,86 @@
+.modal {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+}
+.modal.active {
+  transform: scale(1);
+}
+.modalCotainer {
+  height: 500px;
+  width: 700px;
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+}
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  border-bottom: solid 2px rgba(211, 210, 210, 0.5);
+}
+.wrapper {
+  display: flex;
+  height: 428px;
+}
+.modalContent {
+  width: 500px;
+  border-right: solid 2px rgba(211, 210, 210, 0.5);
+  padding-top: 30px;
+  padding-left: 15px;
+}
+.finishTask {
+  width: 111px;
+  height: 36px;
+  background-color: rgb(62, 204, 204);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+.wrapperBtn {
+  margin-right: 30px;
+}
+.modalHeaderIcon {
+  width: 18%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+}
+
+.taskName {
+}
+.taskNameComplete {
+  text-decoration: line-through;
+  text-decoration-color: green;
+}
+.modalDiscription {
+  display: flex;
+  flex-direction: column;
+}
+.modalDiscriptionBlock {
+  height: 100px;
+  width: 174px;
+  border-bottom: solid 2px rgba(211, 210, 210, 0.5);
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.modalDiscriptionBlock.first {
+  height: 240px;
+}
+.modalDiscriptionBlock.third {
+  border: none;
+}
+.modalDiscriptionBlockText {
+  margin-top: 7px;
+}

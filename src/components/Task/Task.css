@@ -3,7 +3,24 @@
   min-height: 50px;
   border: solid 2px rgb(233, 231, 231);
   border-radius: 7px;
-  padding: 5px;
+  padding: 10px;
   margin: 10px 0px 10px 0px;
   background-color: white;
+  cursor: pointer;
+}
+.taskComplete {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  min-height: 50px;
+  border: solid 2px rgb(233, 231, 231);
+  border-radius: 7px;
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
+  cursor: pointer;
+}
+.taskCompleteText {
+  text-decoration: line-through;
+  text-decoration-color: green;
+  margin-left: 5px;
 }

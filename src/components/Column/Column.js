@@ -10,13 +10,12 @@ function Column({
   id,
   colorhead,
   name,
-  tasks,
+  columnTasks,
   columnId,
   bgColumn,
   addTask,
   deleteColumn,
-
-  taskName,
+  onCLickCard,
 }) {
   const [taskValue, setTaskValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -29,16 +28,20 @@ function Column({
     setTaskValue("");
   };
 
-  const result = tasks.map(({ id, ...rest }) => {
-    return <Task {...rest} key={id} id={id} />;
+  const result = columnTasks.map(({ id, ...rest }) => {
+    return <Task {...rest} key={id} cardId={id} onCLickCard={onCLickCard} />;
   });
 
   return (
     <div className="column">
       <div className="columnHead" style={{ backgroundColor: colorhead }}>
         {name}
+        {columnTasks.length ? (
+          <div className="taskCounter">{columnTasks.length}</div>
+        ) : (
+          <div></div>
+        )}
         <DelBtn
-          className="btnColumnDelete"
           onClick={() => {
             deleteColumn(id);
           }}
@@ -59,7 +62,7 @@ function Column({
             autoFocus
           />
         )}
-        {!tasks.length && (
+        {!columnTasks.length && (
           <>
             <svg width="30%" height="30%" viewBox="0 0 24 24">
               <path
