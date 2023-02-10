@@ -34,8 +34,7 @@
 .modalContent {
   width: 500px;
   border-right: solid 2px rgba(211, 210, 210, 0.5);
-  padding-top: 30px;
-  padding-left: 15px;
+  padding: 30px 15px;
 }
 .finishTask {
   width: 111px;
@@ -83,4 +82,16 @@
 }
 .modalDiscriptionBlockText {
   margin-top: 7px;
+}
+.modalComments {
+  overflow-y: scroll;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.modalInp {
+  width: 95%;
+  padding: 7px;
+  border-radius: 6px;
+  border: none;
+  margin: 5px 5px;
 }

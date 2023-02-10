@@ -3,8 +3,30 @@ import DelBtn from "../../UI/DelBtn/DelBtn";
 import "./Modal.css";
 import CloseIcon from "../../svg/CloseIcon/CloseIcon.tsx";
 import DoneIcon from "../../svg/DoneIkon/DoneIcon";
+import Comment from "../Comment/Comment.tsx";
 
-const Modal = ({ active, setActive, task, setTaskComlete }) => {
+const Modal = ({
+  active,
+  setActive,
+  task,
+  setTaskComlete,
+  id,
+  creator,
+  createDate,
+  content,
+  onDelete,
+  addComment,
+}) => {
+  const [commentValue, setCommentValue] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+
+  const onBlur = () => {
+    if (commentValue) {
+      addComment(commentValue, task.id);
+    }
+    setCommentValue("");
+  };
+
   if (!task) return null;
 
   return (
@@ -39,7 +61,20 @@ const Modal = ({ active, setActive, task, setTaskComlete }) => {
             <div className={!task.isComplete ? "taskName" : "taskNameComplete"}>
               {task.taskName}
             </div>
+            <div className="modalComments">
+              {task.comments.map((comment) => (
+                <Comment {...comment} key={task.comments.id} />
+              ))}
+            </div>
+            <input
+              className="modalInp"
+              value={commentValue}
+              onChange={(event) => setCommentValue(event.target.value)}
+              onBlur={onBlur}
+              placeholder="Введите комментарий"
+            />
           </div>
+
           <div className="modalDiscription">
             <div className="modalDiscriptionBlock first">
               Автор:

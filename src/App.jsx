@@ -119,7 +119,7 @@ function App() {
     );
   }
 
-  function addColumn() {
+  function addColumn(value) {
     let obj;
     obj = {
       id: uuid(),
@@ -137,6 +137,7 @@ function App() {
       id: uuid(),
       columnId,
       taskName,
+      comments: [],
       creator: userName,
       createDate:
         date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
@@ -156,6 +157,30 @@ function App() {
     }
     setValue("");
   };
+
+  function addComment(commentValue, id) {
+    let date = new Date();
+    setTasks(
+      tasks.map((task) => {
+        if (id === task.id) {
+          let arr = task.comments;
+          arr.push({
+            id: uuid,
+            content: commentValue,
+            creator: userName,
+            createDate:
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate(),
+          });
+          return { ...task, comments: arr };
+        }
+        return task;
+      })
+    );
+  }
 
   const result = columns.map((column, index) => {
     const bgIndex = index % 2;
@@ -177,6 +202,10 @@ function App() {
       />
     );
   });
+
+  useEffect(() => {
+    console.log("tasks", tasks);
+  }, [tasks]);
 
   return (
     <div className="dataWrapper">
@@ -241,6 +270,7 @@ function App() {
           active={modalActive}
           setActive={setModalActive}
           task={tasks.find(({ id }) => id === currentCardId)}
+          addComment={addComment}
         />
       </div>
     </div>
