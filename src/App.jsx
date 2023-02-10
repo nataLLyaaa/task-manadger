@@ -145,7 +145,7 @@ function App() {
       isComplete: false,
     };
     const newTasks = [...tasks, obj];
-    localStorage.setItem(`tasks`, JSON.stringify([...tasks, obj]));
+
     changeTask(newTasks);
   }
 
@@ -165,7 +165,7 @@ function App() {
         if (id === task.id) {
           let arr = task.comments;
           arr.push({
-            id: uuid,
+            id: uuid(),
             content: commentValue,
             creator: userName,
             createDate:
@@ -180,6 +180,25 @@ function App() {
         return task;
       })
     );
+    const newTasks = [...tasks];
+    changeTask(newTasks);
+  }
+
+  function deleteComment(id, taskId) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          let arr = task.comments;
+          arr.map((item) => console.log(item));
+          // let arr1 = arr.filter((comment) => comment.id !== id);
+
+          return { ...task, comments: arr };
+        }
+        return task;
+      })
+    );
+    const newTasks = [...tasks];
+    changeTask(newTasks);
   }
 
   const result = columns.map((column, index) => {
@@ -203,9 +222,9 @@ function App() {
     );
   });
 
-  useEffect(() => {
-    console.log("tasks", tasks);
-  }, [tasks]);
+  // useEffect(() => {
+  //   console.log("tasks", tasks);
+  // }, [tasks]);
 
   return (
     <div className="dataWrapper">
@@ -271,6 +290,7 @@ function App() {
           setActive={setModalActive}
           task={tasks.find(({ id }) => id === currentCardId)}
           addComment={addComment}
+          deleteComment={deleteComment}
         />
       </div>
     </div>

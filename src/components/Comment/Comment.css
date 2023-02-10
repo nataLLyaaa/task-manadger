@@ -1,4 +1,6 @@
 .comments {
+  display: flex;
+  justify-content: space-between;
   background-color: rgb(231, 227, 227);
   padding: 7px;
   border-radius: 6px;
@@ -8,4 +10,8 @@
   margin-top: 5px;
   font-size: small;
   font-style: italic;
+}
+.commentDel {
+  display: flex;
+  align-items: center;
 }

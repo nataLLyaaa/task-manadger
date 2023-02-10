@@ -6,22 +6,37 @@ interface ICommentProps {
   creator: String;
   createDate: string;
   content: String;
-  onDelete: (id: string) => void;
+  taskId: String;
+  deleteComment: (id: String, taskId: String) => void;
 }
 
 const Comment: FC<ICommentProps> = ({
+  id,
+  taskId,
   content,
   createDate,
   creator,
-  id,
-  onDelete,
+
+  deleteComment,
 }) => {
   return (
     <div className="comments">
-      <div className="commentContent">{content}</div>
-      <div className="commentAtribute">
-        автор:{creator}
-        дата создания:{createDate}
+      <div>
+        <div className="commentContent">{content}</div>
+        <div className="commentAtribute">
+          <div className="commentCreator"> автор:{creator}</div>
+          <div>дата создания:{createDate}</div>
+        </div>
+      </div>
+      <div className="commentDel">
+        <button
+          className="btnCommentDel"
+          onClick={() => {
+            deleteComment(id, taskId);
+          }}
+        >
+          Удалить комментарий
+        </button>
       </div>
     </div>
   );

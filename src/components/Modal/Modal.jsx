@@ -14,11 +14,10 @@ const Modal = ({
   creator,
   createDate,
   content,
-  onDelete,
+  deleteComment,
   addComment,
 }) => {
   const [commentValue, setCommentValue] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
 
   const onBlur = () => {
     if (commentValue) {
@@ -63,7 +62,12 @@ const Modal = ({
             </div>
             <div className="modalComments">
               {task.comments.map((comment) => (
-                <Comment {...comment} key={task.comments.id} />
+                <Comment
+                  {...comment}
+                  key={comment.id}
+                  taskId={task.id}
+                  deleteComment={deleteComment}
+                />
               ))}
             </div>
             <input
