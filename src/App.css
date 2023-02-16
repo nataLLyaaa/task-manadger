@@ -2,17 +2,28 @@ html {
   height: 100%;
 }
 body {
+  background-image: url("./img/2.jpeg");
+  background-size: 200 px 30px;
+
   height: 100%;
   display: flex;
-  justify-content: center;
+}
+.resultWrapper {
+  display: flex;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 100px;
+  overflow-x: scroll;
 }
 .result {
   display: flex;
+  width: 100%;
   margin-top: 50px;
 }
 .column {
-  width: 250px;
+  width: 300px;
 }
+
 .columnContent {
   height: 100%;
 }
@@ -25,15 +36,7 @@ body {
   border: solid 1px rgb(240, 240, 240);
 }
 
-.header {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  height: 50px;
-  top: 0px;
-  left: 0px;
-  padding-left: 10px;
-}
-.headerLogin {
-  padding-left: 10px;
+.head:hover {
+  background-color: gray;
+  color: white;
 }

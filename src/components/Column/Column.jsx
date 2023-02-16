@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import CloseIcon from "../../svg/CloseIcon/CloseIcon.tsx";
+
 import AddBtn from "../../UI/AddBtn/AddBtn";
 import DelBtn from "../../UI/DelBtn/DelBtn";
 import MyInput from "../../UI/MyInput/MyInput";
+import IconModal from "../IconModal/IconModal.jsx";
 import Task from "../Task/Task";
 import "./Column.css";
 
 function Column({
-  id,
   colorhead,
-  name,
   columnTasks,
-  columnId,
   bgColumn,
   addTask,
   deleteColumn,
   onCLickCard,
+  editColumnName,
+  column,
+  icons,
+  changeColumnIcon,
 }) {
+  const { id: columnId, columnIcon, name } = column;
   const [taskValue, setTaskValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [onChange, setOnChange] = useState(false);
+  const [newColumnName, setnewColumnName] = useState(name);
+  const [modalIconActive, setModalIconActive] = useState(false);
 
   const onBlur = () => {
     setIsEdit(false);
@@ -35,7 +42,29 @@ function Column({
   return (
     <div className="column">
       <div className="columnHead" style={{ backgroundColor: colorhead }}>
-        {name}
+        <button
+          className="iconBtn"
+          onClick={() => {
+            setModalIconActive(true);
+          }}
+        >
+          {icons[columnIcon]}
+        </button>
+
+        {!onChange ? (
+          <p onClick={() => setOnChange(true)}>{name}</p>
+        ) : (
+          <input
+            value={newColumnName}
+            autoFocus
+            onChange={(event) => setnewColumnName(event.target.value)}
+            onBlur={() => {
+              editColumnName(columnId, newColumnName);
+              setOnChange(false);
+            }}
+          />
+        )}
+
         {columnTasks.length ? (
           <div className="taskCounter">{columnTasks.length}</div>
         ) : (
@@ -43,7 +72,7 @@ function Column({
         )}
         <DelBtn
           onClick={() => {
-            deleteColumn(id);
+            deleteColumn(columnId);
           }}
         >
           <CloseIcon />
@@ -79,6 +108,14 @@ function Column({
           </>
         )}
       </div>
+
+      <IconModal
+        columnId={columnId}
+        modalIconActive={modalIconActive}
+        setModalIconActive={setModalIconActive}
+        icons={icons}
+        changeColumnIcon={changeColumnIcon}
+      />
     </div>
   );
 }

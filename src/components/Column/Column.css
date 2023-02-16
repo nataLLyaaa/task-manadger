@@ -3,7 +3,7 @@
   justify-content: space-around;
   align-items: center;
   color: white;
-  height: 50px;
+  height: 60px;
 }
 .columnContent {
   display: flex;
@@ -19,9 +19,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  color: rgb(167, 162, 162);
+  background-color: rgb(223, 227, 227);
+  opacity: 0.3;
+  color: rgb(79, 76, 76);
   width: 22px;
   height: 22px;
   border-radius: 100%;
+}
+.iconBtn {
+  border-radius: 100%;
+  cursor: pointer;
 }
