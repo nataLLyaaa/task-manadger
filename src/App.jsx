@@ -5,7 +5,27 @@ import MyInput from "./UI/MyInput/MyInput";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 import LogIn from "./components/LogIn/Login";
-import LoginIcon from "./svg/LoginIcon/LoginIcon";
+import Icon1 from "./svg/FreeIcons/Icon1/Icon1.tsx";
+import Icon2 from "./svg/FreeIcons/Icon2/Icon2.tsx";
+import Icon3 from "./svg/FreeIcons/Icon3/Icon3.tsx";
+import Icon4 from "./svg/FreeIcons/Icon4/Icon4.tsx";
+import Icon5 from "./svg/FreeIcons/Icon5/Icon5.tsx";
+import Icon6 from "./svg/FreeIcons/Icon6/Icon6.tsx";
+import Icon7 from "./svg/FreeIcons/Icon7/Icon7.tsx";
+import Icon8 from "./svg/FreeIcons/Icon8/Icon8.tsx";
+import Icon9 from "./svg/FreeIcons/Icon9/Icon9.tsx";
+
+const icons = [
+  <Icon1 />,
+  <Icon2 />,
+  <Icon8 />,
+  <Icon5 />,
+  <Icon3 />,
+  <Icon4 />,
+  <Icon6 />,
+  <Icon7 />,
+  <Icon9 />,
+];
 
 const headColors = [
   "rgb(46, 215, 216)",
@@ -17,14 +37,17 @@ const headColors = [
 const initColumn = [
   {
     id: uuid(),
-    name: "Открытые",
+    columnIcon: 0,
+    name: "tfhjjhjkhkjh",
   },
   {
     id: uuid(),
+    columnIcon: 1,
     name: "В процессе",
   },
   {
     id: uuid(),
+    columnIcon: 2,
     name: "Завершенные",
   },
 ];
@@ -63,9 +86,19 @@ function App() {
   const [currentCardId, setCurrentCardId] = useState("");
   const [onSave, setOnSave] = useState(false);
 
+  function changeColumnIcon(columnId, index) {
+    const newColumns = columns.map((column) => {
+      if (column.id == columnId) {
+        return { ...column, columnIcon: index };
+      } else return column;
+    });
+    changeColumn(newColumns);
+  }
+
   function saveUserName(userName) {
     localStorage.setItem("userName", userName);
     setOnSave(true);
+    console.log(onSave);
   }
 
   function changeTask(newTasks) {
@@ -110,18 +143,20 @@ function App() {
   }
 
   function editColumnName(id, newColumnName) {
-    setColumns(
-      columns.map((column) => {
-        if (column.id === id) {
-          return { ...column, name: newColumnName };
-        } else return column;
-      })
-    );
+    const newColumns = columns.map((column) => {
+      if (column.id === id) {
+        return { ...column, name: newColumnName };
+      } else return column;
+    });
+    changeColumn(newColumns);
   }
 
   function addColumn(value) {
     let obj;
+    const iconIndex = columns.length % icons.length;
+
     obj = {
+      columnIcon: iconIndex,
       id: uuid(),
       name: value,
     };
@@ -160,44 +195,39 @@ function App() {
 
   function addComment(commentValue, id) {
     let date = new Date();
-    setTasks(
-      tasks.map((task) => {
-        if (id === task.id) {
-          let arr = task.comments;
-          arr.push({
-            id: uuid(),
-            content: commentValue,
-            creator: userName,
-            createDate:
-              date.getFullYear() +
-              "-" +
-              (date.getMonth() + 1) +
-              "-" +
-              date.getDate(),
-          });
-          return { ...task, comments: arr };
-        }
-        return task;
-      })
-    );
-    const newTasks = [...tasks];
+    const newTasks = tasks.map((task) => {
+      if (id === task.id) {
+        let arr = task.comments;
+        arr.push({
+          id: uuid(),
+          content: commentValue,
+          creator: userName,
+          createDate:
+            date.getFullYear() +
+            "-" +
+            (date.getMonth() + 1) +
+            "-" +
+            date.getDate(),
+        });
+        return { ...task, comments: arr };
+      }
+      return task;
+    });
+
     changeTask(newTasks);
   }
 
   function deleteComment(id, taskId) {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === taskId) {
-          let arr = task.comments;
-          arr.map((item) => console.log(item));
-          // let arr1 = arr.filter((comment) => comment.id !== id);
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        let arr = task.comments;
+        let arr1 = arr.filter((comment) => comment.id !== id);
+        return { ...task, comments: arr1 };
+      }
 
-          return { ...task, comments: arr };
-        }
-        return task;
-      })
-    );
-    const newTasks = [...tasks];
+      return task;
+    });
+
     changeTask(newTasks);
   }
 
@@ -206,18 +236,20 @@ function App() {
     const bgColumn = bgColors[bgIndex];
     const colorIndex = index % 5;
     const colorHead = headColors[colorIndex];
+
     return (
       <Column
         key={column.id}
-        id={column.id}
-        columnId={column.id}
+        column={column}
         colorhead={colorHead}
-        name={column.name}
+        icons={icons}
         deleteColumn={deleteColumn}
         addTask={addTask}
         bgColumn={bgColumn}
         onCLickCard={onCLickCard}
         columnTasks={tasks.filter(({ columnId }) => columnId === column.id)}
+        editColumnName={editColumnName}
+        changeColumnIcon={changeColumnIcon}
       />
     );
   });
@@ -228,59 +260,46 @@ function App() {
 
   return (
     <div className="dataWrapper">
-      <div className="header">
-        <LoginIcon />
-        {onSave ? (
-          <>
-            <div className="headerLogin">{userName}</div>
-            <button
-              onClick={() => {
-                setOnSave(false);
-                setUserName("");
-              }}
-            >
-              Выйти
-            </button>
-          </>
-        ) : (
-          <LogIn
-            userName={userName}
-            setUserName={setUserName}
-            saveUserName={saveUserName}
-          />
-        )}
-      </div>
-      <div className="result">
-        {result}
-        <div className="column">
-          {!isEdit ? (
-            <div className="head">
-              <p onClick={() => setIsEdit(true)}>Добавить раздел</p>
-            </div>
-          ) : (
-            <div
-              className="columnHead"
-              style={{ backgroundColor: headColors[columns.length % 5] }}
-            >
-              <MyInput
-                value={value}
-                autoFocus
-                onFocus={() => setValue("")}
-                onChange={(event) => setValue(event.target.value)}
-                onBlur={onBlur}
-              />
-            </div>
-          )}
+      <LogIn
+        userName={userName}
+        setUserName={setUserName}
+        saveUserName={saveUserName}
+        onSave={onSave}
+        setOnSave={setOnSave}
+      />
+      <div className="resultWrapper">
+        <div className="result">
+          {result}
+          <div className="column">
+            {!isEdit ? (
+              <div className="head">
+                <p onClick={() => setIsEdit(true)}>Добавить раздел</p>
+              </div>
+            ) : (
+              <div
+                className="columnHead"
+                style={{ backgroundColor: headColors[columns.length % 5] }}
+              >
+                <MyInput
+                  value={value}
+                  autoFocus
+                  onFocus={() => setValue("")}
+                  onChange={(event) => setValue(event.target.value)}
+                  onBlur={onBlur}
+                />
+              </div>
+            )}
 
-          <div
-            className="columnContent"
-            style={
-              !(columns.length % 2)
-                ? { backgroundColor: "rgb(235, 235, 235)" }
-                : { backgroundColor: "rgb(240, 240, 240)" }
-            }
-          >
-            Добавить участников
+            <div
+              className="columnContent"
+              style={
+                !(columns.length % 2)
+                  ? { backgroundColor: "rgb(235, 235, 235)" }
+                  : { backgroundColor: "rgb(240, 240, 240)" }
+              }
+            >
+              Добавить участников
+            </div>
           </div>
         </div>
         <Modal

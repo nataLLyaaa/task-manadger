@@ -16,19 +16,18 @@ const Comment: FC<ICommentProps> = ({
   content,
   createDate,
   creator,
-
   deleteComment,
 }) => {
   return (
     <div className="comments">
-      <div>
+      
         <div className="commentContent">{content}</div>
         <div className="commentAtribute">
+          <div>
           <div className="commentCreator"> автор:{creator}</div>
           <div>дата создания:{createDate}</div>
-        </div>
-      </div>
-      <div className="commentDel">
+          </div>
+          <div className="commentDel">
         <button
           className="btnCommentDel"
           onClick={() => {
@@ -38,6 +37,9 @@ const Comment: FC<ICommentProps> = ({
           Удалить комментарий
         </button>
       </div>
+        </div>
+      
+     
     </div>
   );
 };
