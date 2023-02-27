@@ -4,21 +4,19 @@ html {
 body {
   background-image: url("./img/2.jpeg");
   background-size: 200 px 30px;
-
   height: 100%;
-  display: flex;
 }
 .resultWrapper {
   display: flex;
   margin-left: 50px;
   margin-right: 50px;
-  width: 100px;
+  width: 1330px;
+  height: 700px;
   overflow-x: scroll;
+  margin-top: 80px;
 }
 .result {
   display: flex;
-  width: 100%;
-  margin-top: 50px;
 }
 .column {
   width: 300px;

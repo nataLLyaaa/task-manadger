@@ -1,25 +1,25 @@
 .headerLogin {
-    margin-right: 10px;
-    margin-left: 10px;
-  }
-  .header {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    top: 0px;
-    left: 0px;
-    padding-left: 20px;
-  }
-  .loginBtn {
-    background-color:  rgb(62, 204, 204);
-    border: none;
-    border-radius: 4px;
-    height: 25px;
-    width: 60px;
-    color: white;
-  }
-  .loginBtn:disabled {
-    background-color: rgba(211, 210, 210, 0.5);
-    tansition: all .3s linear;
-  }
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  top: 0px;
+  left: 0px;
+  padding-left: 20px;
+}
+.loginBtn {
+  background-color: rgb(62, 204, 204);
+  border: none;
+  border-radius: 4px;
+  height: 25px;
+  width: 60px;
+  color: white;
+}
+.loginBtn:disabled {
+  background-color: rgba(211, 210, 210, 0.5);
+  tansition: all 0.3s linear;
+}
