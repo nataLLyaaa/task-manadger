@@ -5,7 +5,6 @@ import MyInput from "./UI/MyInput/MyInput";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 import LogIn from "./components/LogIn/Login";
-import LoginIcon from "./svg/LoginIcon/LoginIcon";
 
 const headColors = [
   "rgb(46, 215, 216)",
@@ -17,15 +16,15 @@ const headColors = [
 const initColumn = [
   {
     id: uuid(),
-    name: "Открытые",
+    columnName: "Открытые",
   },
   {
     id: uuid(),
-    name: "В процессе",
+    columnName: "В процессе",
   },
   {
     id: uuid(),
-    name: "Завершенные",
+    columnName: "Завершенные",
   },
 ];
 
@@ -110,20 +109,19 @@ function App() {
   }
 
   function editColumnName(id, newColumnName) {
-    setColumns(
-      columns.map((column) => {
-        if (column.id === id) {
-          return { ...column, name: newColumnName };
-        } else return column;
-      })
-    );
+    const newColumns = columns.map((column) => {
+      if (column.id === id) {
+        return { ...column, columnName: newColumnName };
+      } else return column;
+    });
+    changeColumn(newColumns);
   }
 
   function addColumn(value) {
     let obj;
     obj = {
       id: uuid(),
-      name: value,
+      columnName: value,
     };
     const newColumns = [...columns, obj];
     changeColumn(newColumns);
@@ -212,10 +210,11 @@ function App() {
         id={column.id}
         columnId={column.id}
         colorhead={colorHead}
-        name={column.name}
+        columnName={column.columnName}
         deleteColumn={deleteColumn}
         addTask={addTask}
         bgColumn={bgColumn}
+        editColumnName={editColumnName}
         onCLickCard={onCLickCard}
         columnTasks={tasks.filter(({ columnId }) => columnId === column.id)}
       />
@@ -228,28 +227,14 @@ function App() {
 
   return (
     <div className="dataWrapper">
-      <div className="header">
-        <LoginIcon />
-        {onSave ? (
-          <>
-            <div className="headerLogin">{userName}</div>
-            <button
-              onClick={() => {
-                setOnSave(false);
-                setUserName("");
-              }}
-            >
-              Выйти
-            </button>
-          </>
-        ) : (
-          <LogIn
-            userName={userName}
-            setUserName={setUserName}
-            saveUserName={saveUserName}
-          />
-        )}
-      </div>
+      <LogIn
+        userName={userName}
+        setUserName={setUserName}
+        saveUserName={saveUserName}
+        setOnSave={setOnSave}
+        onSave={onSave}
+      />
+
       <div className="result">
         {result}
         <div className="column">

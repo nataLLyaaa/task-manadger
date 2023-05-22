@@ -24,16 +24,3 @@ body {
   cursor: pointer;
   border: solid 1px rgb(240, 240, 240);
 }
-
-.header {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  height: 50px;
-  top: 0px;
-  left: 0px;
-  padding-left: 10px;
-}
-.headerLogin {
-  padding-left: 10px;
-}

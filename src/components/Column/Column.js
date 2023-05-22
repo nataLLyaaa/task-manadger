@@ -9,16 +9,23 @@ import "./Column.css";
 function Column({
   id,
   colorhead,
-  name,
+  columnName,
   columnTasks,
   columnId,
   bgColumn,
   addTask,
   deleteColumn,
   onCLickCard,
+  editColumnName,
 }) {
   const [taskValue, setTaskValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [isNameEdit, setIsNameEdit] = useState(false);
+  const [newColumnName, setNewColumnName] = useState(columnName);
+  const onBlurColumnName = () => {
+    setIsNameEdit(false);
+    editColumnName(columnId, newColumnName);
+  };
 
   const onBlur = () => {
     setIsEdit(false);
@@ -35,7 +42,16 @@ function Column({
   return (
     <div className="column">
       <div className="columnHead" style={{ backgroundColor: colorhead }}>
-        {name}
+        {isNameEdit ? (
+          <input
+            autoFocus
+            value={newColumnName}
+            onChange={(event) => setNewColumnName(event.target.value)}
+            onBlur={onBlurColumnName}
+          />
+        ) : (
+          <div onClick={() => setIsNameEdit(true)}>{columnName}</div>
+        )}
         {columnTasks.length ? (
           <div className="taskCounter">{columnTasks.length}</div>
         ) : (
