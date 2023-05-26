@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CloseIcon from "../../UI/CloseIcon/CloseIcon.js";
+import CloseIcon from "../../UI/CloseIcon/CloseIcon.tsx";
 
-import AddBtn from "../../UI/AddBtn/AddBtn";
-import DelBtn from "../../UI/DelBtn/DelBtn";
-import MyInput from "../../UI/MyInput/MyInput";
+import AddBtn from "../../UI/AddBtn/AddBtn.js";
+import DelBtn from "../../UI/DelBtn/DelBtn.js";
+import MyInput from "../../UI/MyInput/MyInput.js";
 import IconModal from "../IconModal/IconModal.jsx";
 import Task from "../Task/Task";
 import "./Column.css";

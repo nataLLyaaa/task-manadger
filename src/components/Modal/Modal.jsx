@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DelBtn from "../../UI/DelBtn/DelBtn";
 import "./Modal.css";
-import CloseIcon from "../../UI/CloseIcon/CloseIcon";
+import CloseIcon from "../../UI/CloseIcon/CloseIcon.tsx";
 import DoneIcon from "../../UI/DoneIkon/DoneIcon";
 import Comment from "../Comment/Comment.tsx";
 
