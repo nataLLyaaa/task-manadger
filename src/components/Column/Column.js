@@ -17,6 +17,7 @@ function Column({
   deleteColumn,
   onCLickCard,
   editColumnName,
+  icon,
 }) {
   const [taskValue, setTaskValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -42,6 +43,7 @@ function Column({
   return (
     <div className="column">
       <div className="columnHead" style={{ backgroundColor: colorhead }}>
+        {/* {icon} */}
         {isNameEdit ? (
           <input
             autoFocus

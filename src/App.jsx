@@ -5,6 +5,34 @@ import MyInput from "./UI/MyInput/MyInput";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 import LogIn from "./components/LogIn/Login";
+import { ReactComponent as Icons1 } from "./img/icons1.svg";
+import { ReactComponent as Icons3 } from "./img/icons3.svg";
+import { ReactComponent as Icons2 } from "./img/icons2.svg";
+import { ReactComponent as Icons4 } from "./img/icons4.svg";
+import { ReactComponent as Icons5 } from "./img/icons5.svg";
+import { ReactComponent as Icons6 } from "./img/icons6.svg";
+import { ReactComponent as Icons7 } from "./img/icons7.svg";
+import { ReactComponent as Icons8 } from "./img/icons8.svg";
+import { ReactComponent as Icons9 } from "./img/icons9.svg";
+import { ReactComponent as Icons10 } from "./img/icons10.svg";
+import { ReactComponent as Icons11 } from "./img/icons11.svg";
+import { ReactComponent as Icons12 } from "./img/icons12.svg";
+
+const icons = [
+  <Icons1 />,
+  <Icons2 />,
+  <Icons3 />,
+  <Icons3 />,
+  <Icons4 />,
+  <Icons5 />,
+  <Icons6 />,
+  <Icons7 />,
+  <Icons8 />,
+  <Icons9 />,
+  <Icons10 />,
+  <Icons11 />,
+  <Icons12 />,
+];
 
 const headColors = [
   "rgb(46, 215, 216)",
@@ -17,17 +45,20 @@ const initColumn = [
   {
     id: uuid(),
     columnName: "Открытые",
+    icon: icons[0],
   },
   {
     id: uuid(),
     columnName: "В процессе",
+    icon: icons[1],
   },
   {
     id: uuid(),
     columnName: "Завершенные",
+    icon: icons[2],
   },
 ];
-
+console.log(Icons12);
 function App() {
   const getTasks = () => {
     const newTask = localStorage.getItem(`tasks`);
@@ -57,7 +88,7 @@ function App() {
   const [columns, setColumns] = useState(getData());
   const initTasks = [];
   const [value, setValue] = useState("");
-  const [tasks, setTasks] = useState(getTasks);
+  const [tasks, setTasks] = useState(getTasks());
   const bgColors = ["rgb(235, 235, 235)", "rgb(240, 240, 240)"];
   const [currentCardId, setCurrentCardId] = useState("");
   const [onSave, setOnSave] = useState(false);
@@ -119,9 +150,11 @@ function App() {
 
   function addColumn(value) {
     let obj;
+    let iconIndex = (columns.length + 1) % icons.length;
     obj = {
       id: uuid(),
       columnName: value,
+      icon: icons[iconIndex],
     };
     const newColumns = [...columns, obj];
     changeColumn(newColumns);
@@ -183,19 +216,19 @@ function App() {
   }
 
   function deleteComment(id, taskId) {
-    setTasks(
+    const newTasks = setTasks(
       tasks.map((task) => {
         if (task.id === taskId) {
           let arr = task.comments;
-          arr.map((item) => console.log(item));
-          // let arr1 = arr.filter((comment) => comment.id !== id);
+          // arr.map((item) => console.log(item));
+          let arr1 = arr.filter((comment) => comment.id !== id);
 
-          return { ...task, comments: arr };
+          return { ...task, comments: arr1 };
         }
         return task;
       })
     );
-    const newTasks = [...tasks];
+    console.log(newTasks);
     changeTask(newTasks);
   }
 
@@ -204,12 +237,14 @@ function App() {
     const bgColumn = bgColors[bgIndex];
     const colorIndex = index % 5;
     const colorHead = headColors[colorIndex];
+
     return (
       <Column
         key={column.id}
         id={column.id}
         columnId={column.id}
         colorhead={colorHead}
+        icon={column.icon}
         columnName={column.columnName}
         deleteColumn={deleteColumn}
         addTask={addTask}
@@ -265,6 +300,7 @@ function App() {
                 : { backgroundColor: "rgb(240, 240, 240)" }
             }
           >
+            <Icons12 />
             Добавить участников
           </div>
         </div>
