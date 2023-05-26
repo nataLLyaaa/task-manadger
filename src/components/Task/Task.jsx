@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
-import DoneIcon from "../../svg/DoneIkon/DoneIcon";
+import DoneIcon from "../../UI/DoneIkon/DoneIcon";
 import "./Task.css";
 
 function Task({ taskName, onCLickCard, cardId, isComplete }) {

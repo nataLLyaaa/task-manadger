@@ -38,7 +38,7 @@ const initColumn = [
   {
     id: uuid(),
     columnIcon: 0,
-    name: "tfhjjhjkhkjh",
+    name: "Новые",
   },
   {
     id: uuid(),
@@ -289,7 +289,6 @@ function App() {
                 />
               </div>
             )}
-
             <div
               className="columnContent"
               style={
@@ -300,6 +299,7 @@ function App() {
             >
               Добавить участников
             </div>
+            n{" "}
           </div>
         </div>
         <Modal

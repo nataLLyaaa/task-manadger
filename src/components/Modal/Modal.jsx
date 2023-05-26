@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import DelBtn from "../../UI/DelBtn/DelBtn";
 import "./Modal.css";
-import CloseIcon from "../../svg/CloseIcon/CloseIcon.tsx";
-import DoneIcon from "../../svg/DoneIkon/DoneIcon";
+import CloseIcon from "../../UI/CloseIcon/CloseIcon";
+import DoneIcon from "../../UI/DoneIkon/DoneIcon";
 import Comment from "../Comment/Comment.tsx";
 
 const Modal = ({

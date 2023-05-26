@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CloseIcon from "../../svg/CloseIcon/CloseIcon.tsx";
+import CloseIcon from "../../UI/CloseIcon/CloseIcon.js";
 
 import AddBtn from "../../UI/AddBtn/AddBtn";
 import DelBtn from "../../UI/DelBtn/DelBtn";
