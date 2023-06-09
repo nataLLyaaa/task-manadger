@@ -1,122 +1,92 @@
-import React, { useState } from "react";
-import CloseIcon from "../../UI/CloseIcon/CloseIcon.tsx";
-
-import AddBtn from "../../UI/AddBtn/AddBtn.js";
-import DelBtn from "../../UI/DelBtn/DelBtn.js";
+import React, { useEffect, useState } from "react";
+import ColumnItem from "../ColumnItem/ColumnItem.jsx";
 import MyInput from "../../UI/MyInput/MyInput.js";
-import IconModal from "../IconModal/IconModal.jsx";
-import Task from "../Task/Task";
-import "./Column.css";
 
-function Column({
-  colorhead,
-  columnTasks,
-  bgColumn,
-  addTask,
+const Column = ({
+  arr,
+  headColors,
+  bgColors,
+  tasks,
+  // icons,
   deleteColumn,
+  addTask,
   onCLickCard,
-  editColumnName,
-  column,
-  icons,
   changeColumnIcon,
-}) {
-  const { id: columnId, columnIcon, name } = column;
-  const [taskValue, setTaskValue] = useState("");
+  editColumnName,
+  addColumn,
+  value,
+  setValue,
+  userName,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [onChange, setOnChange] = useState(false);
-  const [newColumnName, setnewColumnName] = useState(name);
-  const [modalIconActive, setModalIconActive] = useState(false);
-
   const onBlur = () => {
     setIsEdit(false);
-    if (taskValue) {
-      addTask(taskValue, columnId);
+    if (value) {
+      addColumn(value);
+      setIsEdit(false);
     }
-    setTaskValue("");
+    setValue("");
   };
-
-  const result = columnTasks.map(({ id, ...rest }) => {
-    return <Task {...rest} key={id} cardId={id} onCLickCard={onCLickCard} />;
-  });
+  if (!arr) return null;
 
   return (
-    <div className="column">
-      <div className="columnHead" style={{ backgroundColor: colorhead }}>
-        <button
-          className="iconBtn"
-          onClick={() => {
-            setModalIconActive(true);
-          }}
-        >
-          {icons[columnIcon]}
-        </button>
+    <div className="result">
+      {arr.map((item, index) => {
+        const bgIndex = index % 2;
+        const bgColumn = bgColors[bgIndex];
+        const colorIndex = index % 5;
+        const colorHead = headColors[colorIndex];
 
-        {!onChange ? (
-          <p onClick={() => setOnChange(true)}>{name}</p>
-        ) : (
-          <input
-            value={newColumnName}
-            autoFocus
-            onChange={(event) => setnewColumnName(event.target.value)}
-            onBlur={() => {
-              editColumnName(columnId, newColumnName);
-              setOnChange(false);
-            }}
+        return (
+          <ColumnItem
+            key={item.id}
+            column={item}
+            colorhead={colorHead}
+            // icons={icons}
+            deleteColumn={deleteColumn}
+            addTask={addTask}
+            bgColumn={bgColumn}
+            onCLickCard={onCLickCard}
+            columnTasks={tasks.filter(({ columnId }) => columnId === item.id)}
+            editColumnName={editColumnName}
+            changeColumnIcon={changeColumnIcon}
+            userName={userName}
           />
-        )}
-
-        {columnTasks.length ? (
-          <div className="taskCounter">{columnTasks.length}</div>
-        ) : (
-          <div></div>
-        )}
-        <DelBtn
-          onClick={() => {
-            deleteColumn(columnId);
-          }}
-        >
-          <CloseIcon />
-        </DelBtn>
-      </div>
-      <div className="columnContent" style={{ backgroundColor: bgColumn }}>
-        {result}
+        );
+      })}
+      <div className="column">
         {!isEdit ? (
-          <AddBtn onClick={() => setIsEdit(true)}>+</AddBtn>
+          <div className="head">
+            <p onClick={() => setIsEdit(true)}>Добавить раздел</p>
+          </div>
         ) : (
-          <MyInput
-            value={taskValue}
-            onChange={(event) => setTaskValue(event.target.value)}
-            onBlur={onBlur}
-            placeholder="Введите название задачи"
-            autoFocus
-          />
+          <div
+            className="columnHead"
+            style={{ backgroundColor: headColors[arr.length % 5] }}
+          >
+            <MyInput
+              value={value}
+              autoFocus
+              onFocus={() => setValue("")}
+              onChange={(event) => setValue(event.target.value)}
+              onBlur={onBlur}
+            />
+          </div>
         )}
-        {!columnTasks.length && (
-          <>
-            <svg width="30%" height="30%" viewBox="0 0 24 24">
-              <path
-                color="rgb(138, 148, 153)"
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1zm0 2a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm4.328 4.856a1.003 1.003 0 0 1 1.416 0 .999.999 0 0 1-.002 1.414l-7.334 7.323c-.392.39-1.024.39-1.415 0l-3.086-3.086a1 1 0 0 1 1.414-1.414l2.025 2.025a.501.501 0 0 0 .708 0z"
-              ></path>
-            </svg>
-            <div>Задачи отсутствуют</div>
-            <div className="columnContentText">
-              Перетащите задачи сюда или нажмите + чтобы добавить новые задачи
-            </div>
-          </>
-        )}
+        <div
+          className="columnContent"
+          style={
+            !(arr.length % 2)
+              ? { backgroundColor: "rgb(235, 235, 235)" }
+              : { backgroundColor: "rgb(240, 240, 240)" }
+          }
+        >
+          Добавить участников
+        </div>
+        n{" "}
       </div>
-
-      <IconModal
-        columnId={columnId}
-        modalIconActive={modalIconActive}
-        setModalIconActive={setModalIconActive}
-        icons={icons}
-        changeColumnIcon={changeColumnIcon}
-      />
     </div>
   );
-}
+};
+
 export default Column;

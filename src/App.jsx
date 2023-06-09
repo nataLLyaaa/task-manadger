@@ -1,31 +1,10 @@
 import React, { useEffect, useState } from "react";
 import uuid from "react-uuid";
-import Column from "./components/Column/Column";
-import MyInput from "./UI/MyInput/MyInput";
+import { useSelector } from "react-redux";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 import LogIn from "./components/LogIn/Login";
-import Icon1 from "./svg/FreeIcons/Icon1/Icon1.tsx";
-import Icon2 from "./svg/FreeIcons/Icon2/Icon2.tsx";
-import Icon3 from "./svg/FreeIcons/Icon3/Icon3.tsx";
-import Icon4 from "./svg/FreeIcons/Icon4/Icon4.tsx";
-import Icon5 from "./svg/FreeIcons/Icon5/Icon5.tsx";
-import Icon6 from "./svg/FreeIcons/Icon6/Icon6.tsx";
-import Icon7 from "./svg/FreeIcons/Icon7/Icon7.tsx";
-import Icon8 from "./svg/FreeIcons/Icon8/Icon8.tsx";
-import Icon9 from "./svg/FreeIcons/Icon9/Icon9.tsx";
-
-const icons = [
-  <Icon1 />,
-  <Icon2 />,
-  <Icon8 />,
-  <Icon5 />,
-  <Icon3 />,
-  <Icon4 />,
-  <Icon6 />,
-  <Icon7 />,
-  <Icon9 />,
-];
+import Column from "./components/Column/Column.jsx";
 
 const headColors = [
   "rgb(46, 215, 216)",
@@ -53,6 +32,7 @@ const initColumn = [
 ];
 
 function App() {
+  const icons = useSelector((state) => state.icons.icons);
   const getTasks = () => {
     const newTask = localStorage.getItem(`tasks`);
     if (newTask === null) {
@@ -71,13 +51,17 @@ function App() {
     return JSON.parse(newData);
   };
   const getUser = () => {
-    const saved = localStorage.getItem("userName");
-    return saved || "";
+    const newUser = localStorage.getItem("userName");
+    if (newUser === null) {
+      localStorage.setItem(`userName`, null);
+      return null;
+    }
+    return newUser;
   };
 
   const [userName, setUserName] = useState(getUser());
   const [modalActive, setModalActive] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+
   const [columns, setColumns] = useState(getData());
   const initTasks = [];
   const [value, setValue] = useState("");
@@ -98,7 +82,6 @@ function App() {
   function saveUserName(userName) {
     localStorage.setItem("userName", userName);
     setOnSave(true);
-    console.log(onSave);
   }
 
   function changeTask(newTasks) {
@@ -184,15 +167,6 @@ function App() {
     changeTask(newTasks);
   }
 
-  const onBlur = () => {
-    setIsEdit(false);
-    if (value) {
-      addColumn(value);
-      setIsEdit(false);
-    }
-    setValue("");
-  };
-
   function addComment(commentValue, id) {
     let date = new Date();
     const newTasks = tasks.map((task) => {
@@ -231,33 +205,6 @@ function App() {
     changeTask(newTasks);
   }
 
-  const result = columns.map((column, index) => {
-    const bgIndex = index % 2;
-    const bgColumn = bgColors[bgIndex];
-    const colorIndex = index % 5;
-    const colorHead = headColors[colorIndex];
-
-    return (
-      <Column
-        key={column.id}
-        column={column}
-        colorhead={colorHead}
-        icons={icons}
-        deleteColumn={deleteColumn}
-        addTask={addTask}
-        bgColumn={bgColumn}
-        onCLickCard={onCLickCard}
-        columnTasks={tasks.filter(({ columnId }) => columnId === column.id)}
-        editColumnName={editColumnName}
-        changeColumnIcon={changeColumnIcon}
-      />
-    );
-  });
-
-  // useEffect(() => {
-  //   console.log("tasks", tasks);
-  // }, [tasks]);
-
   return (
     <div className="dataWrapper">
       <LogIn
@@ -267,41 +214,25 @@ function App() {
         onSave={onSave}
         setOnSave={setOnSave}
       />
+
       <div className="resultWrapper">
-        <div className="result">
-          {result}
-          <div className="column">
-            {!isEdit ? (
-              <div className="head">
-                <p onClick={() => setIsEdit(true)}>Добавить раздел</p>
-              </div>
-            ) : (
-              <div
-                className="columnHead"
-                style={{ backgroundColor: headColors[columns.length % 5] }}
-              >
-                <MyInput
-                  value={value}
-                  autoFocus
-                  onFocus={() => setValue("")}
-                  onChange={(event) => setValue(event.target.value)}
-                  onBlur={onBlur}
-                />
-              </div>
-            )}
-            <div
-              className="columnContent"
-              style={
-                !(columns.length % 2)
-                  ? { backgroundColor: "rgb(235, 235, 235)" }
-                  : { backgroundColor: "rgb(240, 240, 240)" }
-              }
-            >
-              Добавить участников
-            </div>
-            n{" "}
-          </div>
-        </div>
+        <Column
+          arr={columns}
+          headColors={headColors}
+          bgColors={bgColors}
+          tasks={tasks}
+          // icons={icons}
+          deleteColumn={deleteColumn}
+          addTask={addTask}
+          addColumn={addColumn}
+          value={value}
+          setValue={setValue}
+          onCLickCard={onCLickCard}
+          changeColumnIcon={changeColumnIcon}
+          editColumnName={editColumnName}
+          userName={userName}
+        />
+
         <Modal
           cardId={currentCardId}
           setTaskComlete={setTaskComlete}

@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import "./IconModal.css";
 import DelBtn from "../../UI/DelBtn/DelBtn";
 import CloseIcon from "../../UI/CloseIcon/CloseIcon.tsx";
+import { useSelector } from "react-redux";
 
 const IconModal = ({
-  icons,
+  // icons,
   modalIconActive,
   setModalIconActive,
   columnId,
   changeColumnIcon,
 }) => {
+  const icons = useSelector((state) => state.icons.icons);
   const result = icons.map((item, index) => {
     return (
       <button
